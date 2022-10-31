@@ -1,0 +1,67 @@
+80009e20	800097b7          	lui	a5,0x80009
+80009e24	ff010113          	addi	sp,sp,-16
+80009e28	1c078713          	addi	a4,a5,448 # 800091c0 <_ctors_end+0xfffff274>
+80009e2c	00812623          	sw	s0,12(sp)
+80009e30	00100693          	li	a3,1
+80009e34	00d70023          	sb	a3,0(a4)
+80009e38	40d70023          	sb	a3,1024(a4)
+80009e3c	1c078793          	addi	a5,a5,448
+80009e40	80000737          	lui	a4,0x80000
+80009e44	800018b7          	lui	a7,0x80001
+80009e48	8000a5b7          	lui	a1,0x8000a
+80009e4c	22072823          	sw	zero,560(a4) # 80000230 <_ctors_end+0xffff62e4>
+80009e50	800073b7          	lui	t2,0x80007
+80009e54	23070713          	addi	a4,a4,560
+80009e58	23088893          	addi	a7,a7,560 # 80001230 <_ctors_end+0xffff72e4>
+80009e5c	1c058593          	addi	a1,a1,448 # 8000a1c0 <_ctors_end+0x274>
+80009e60	00100313          	li	t1,1
+80009e64	40000293          	li	t0,1024
+80009e68	40078413          	addi	s0,a5,1024
+80009e6c	1c038813          	addi	a6,t2,448 # 800071c0 <_ctors_end+0xffffd274>
+80009e70	00070e13          	mv	t3,a4
+80009e74	00000513          	li	a0,0
+80009e78	00a786b3          	add	a3,a5,a0
+80009e7c	0006c603          	lbu	a2,0(a3)
+80009e80	04061e63          	bnez	a2,80009edc <BFSGraph+0xbc>
+80009e84	00150513          	addi	a0,a0,1
+80009e88	00880813          	addi	a6,a6,8
+80009e8c	004e0e13          	addi	t3,t3,4
+80009e90	fe5514e3          	bne	a0,t0,80009e78 <BFSGraph+0x58>
+80009e94	80058613          	addi	a2,a1,-2048
+80009e98	00000693          	li	a3,0
+80009e9c	00000513          	li	a0,0
+80009ea0	00064803          	lbu	a6,0(a2)
+80009ea4	00080e63          	beqz	a6,80009ec0 <BFSGraph+0xa0>
+80009ea8	00d78533          	add	a0,a5,a3
+80009eac	00650023          	sb	t1,0(a0)
+80009eb0	00d40533          	add	a0,s0,a3
+80009eb4	00650023          	sb	t1,0(a0)
+80009eb8	00060023          	sb	zero,0(a2)
+80009ebc	00080513          	mv	a0,a6
+80009ec0	00168693          	addi	a3,a3,1
+80009ec4	00160613          	addi	a2,a2,1
+80009ec8	fc569ce3          	bne	a3,t0,80009ea0 <BFSGraph+0x80>
+80009ecc	fa0510e3          	bnez	a0,80009e6c <BFSGraph+0x4c>
+80009ed0	00c12403          	lw	s0,12(sp)
+80009ed4	01010113          	addi	sp,sp,16
+80009ed8	00008067          	ret
+80009edc	00068023          	sb	zero,0(a3)
+80009ee0	00482e83          	lw	t4,4(a6)
+80009ee4	00082683          	lw	a3,0(a6)
+80009ee8	01d68eb3          	add	t4,a3,t4
+80009eec	f9d6dce3          	bge	a3,t4,80009e84 <BFSGraph+0x64>
+80009ef0	00269613          	slli	a2,a3,0x2
+80009ef4	01160633          	add	a2,a2,a7
+80009ef8	00062603          	lw	a2,0(a2)
+80009efc	00c78f33          	add	t5,a5,a2
+80009f00	400f4f03          	lbu	t5,1024(t5)
+80009f04	020f1063          	bnez	t5,80009f24 <BFSGraph+0x104>
+80009f08	000e2f83          	lw	t6,0(t3)
+80009f0c	00261f13          	slli	t5,a2,0x2
+80009f10	01e70f33          	add	t5,a4,t5
+80009f14	001f8f93          	addi	t6,t6,1
+80009f18	00c58633          	add	a2,a1,a2
+80009f1c	01ff2023          	sw	t6,0(t5)
+80009f20	80660023          	sb	t1,-2048(a2)
+80009f24	00168693          	addi	a3,a3,1
+80009f28	fc5ff06f          	j	80009eec <BFSGraph+0xcc>
