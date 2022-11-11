@@ -8,12 +8,45 @@
 
 
 
-
 //Calls output_char in a loop.
 
 
 ///////////
 
+
+void putchar(char c){
+	uart_write(UART, c);
+}
+
+
+static void printf_c(int c)
+{
+	putchar(c);
+}
+
+
+static void printf_d(int val)
+{
+	char buffer[32];
+	char *p = buffer;
+	if (val < 0) {
+		printf_c('-');
+		val = -val;
+	}
+	while (val || p == buffer) {
+		*(p++) = '0' + val % 10;
+		val = val / 10;
+	}
+	while (p != buffer)
+		printf_c(*(--p));
+}
+
+int read_cycles(void)
+{
+int cycles;
+asm volatile ("rdcycle %0" : "=r" (cycles));
+return cycles;
+}
 void print(const char*str){
 	while(*str){
 		uart_write(UART,*str);
@@ -34,14 +67,14 @@ void bfs (){
   int thislevel;
   int back, front;
   int i, v, w, e;
-  back = 0;
-  front = 0;
+  back = 0;   
+  front = 0;  
   thislevel = 0;
   level[0] = 0;
   levelsize[0] = 1;
   queue[back++] = 0;
 
-
+  
   while (levelsize[thislevel] > 0) {
     levelsize[thislevel+1] = 0;
     for (i = 0; i < levelsize[thislevel]; i++) {
@@ -61,32 +94,32 @@ void bfs (){
 //if(level[100]==3)
 //println("pass");
 }*/
-void BFSGraph()
+void BFSGraph() 
 {
         int no_of_nodes = ver;          //number of vertices
         int edge_list_size = edg;       //edges
         int source = 0;
 
-
-	int start, edgeno;
+	
+	int start, edgeno;   
 	// initalize the memory
 
 
-
+	
 	//set the source node as true in the mask
 	h_graph_mask[source]=true; //true or false supported? lets see if bool is supported. it should be.
 	h_graph_visited[source]=true;
 
-
+	
 	int id,cost;
-
+	
 
 	// allocate mem for the result on host side
 	//int* h_cost = (int*) malloc( sizeof(int)*no_of_nodes);
-
+	
 	h_cost[source]=0;
-
-
+	
+        int cycles;
 	int k=0;
 	bool stop; //flag
 	do
@@ -96,13 +129,10 @@ void BFSGraph()
 
            for(int tid = 0; tid < no_of_nodes; tid++ ) //all nodes. row wise
             {
-
                 if (h_graph_mask[tid] == true){ //check if active
-
                     h_graph_mask[tid]=false;
                     for(int i=h_graph_nodes[tid].starting; i<(h_graph_nodes[tid].no_of_edges + h_graph_nodes[tid].starting); i++)
                     { //starting till no of edges
-
                         int id = h_graph_edges[i]; //where is it connected to.
                         if(!h_graph_visited[id]) //is it visited?
                         {
@@ -113,9 +143,9 @@ void BFSGraph()
                 }
             }
 
-            for(int tid=0; tid< no_of_nodes ; tid++ ) //this in the previous loop
+            for(int tid=0; tid< no_of_nodes ; tid++ ) //makes sense for parallel execution. else why not do all this in the previous loop
             {
-                if (h_updating_graph_mask[tid] == true){  
+                if (h_updating_graph_mask[tid] == true){ //this is just to make something work by 
                     h_graph_mask[tid]=true;
                     h_graph_visited[tid]=true;
                     stop=true;
@@ -123,13 +153,13 @@ void BFSGraph()
                 }
             }
         k++;
-
+            
         }
 	while(stop);
 	// cleanup memory
-//if(h_cost[100]==4)
-//println("hi");
-//if(h_cost[0]==0)
+if(h_cost[100]==4)
+println("hi");
+//if(h_cost[1020]==3)
 //println("double");
 
 }
@@ -138,13 +168,22 @@ void BFSGraph()
 //////
 
 int main() {
-
+    
  // println("hello world Ashuthosh1");
+int a=read_cycles();
     BFSGraph();
-  println("hello world Ashuthosh");
-
+int b=read_cycles();
+printf_d(b-a);
+println("\n");
+  //println("hello world Ashuthosh");
+  
 }
 
 
 void irqCallback(){
 }
+
+
+
+
+
