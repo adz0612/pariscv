@@ -152,12 +152,9 @@ count1=count;
             
 
 for(int c=0;c<count;c++){
-h_graph_active[c]=h_updating_graph_active[c]+5;
+h_graph_active[c]=h_updating_graph_active[c];
 }
 
-for(int c=0;c<count;c++){
-h_graph_active[c]=h_graph_active[c]-5;
-}
 
         k++;
 
