@@ -1,7 +1,7 @@
 //#include "stddefs.h"
 #include <stdint.h>
 
-#include "murax.h"
+//#include "murax.h"
 #include "data.h"
 
 ////////////printers
@@ -13,7 +13,7 @@
 
 ///////////
 
-
+/*
 void putchar(char c){
 	uart_write(UART, c);
 }
@@ -59,7 +59,7 @@ void println(const char*str){
 }
 
 
-
+*/
 /////bfs function
 /*
 void bfs (){
@@ -126,37 +126,33 @@ void BFSGraph()
 	do
         {
             //if no thread changes this value then the loop stops
-            stop=false;
+                   stop=false;
 
            
-
+k++;
 count=0;
 for(int j=0;j<count1;j++){
 tid=h_graph_active[j];
 
 
-                    for(int i=h_graph_nodes[tid].starting; i<(h_graph_nodes[tid].no_of_edges + h_graph_nodes[tid].starting); i++)
+                    for(int i=h_graph_nodes[tid].starting; i< h_graph_nodes[tid+1].starting; i++)
                     { //starting till no of edges
                         int id = h_graph_edges[i]; //where is it connected to.
-                        if(!h_graph_visited[id]) //is it visited?
-                        {
-                            h_cost[id]=h_cost[tid]+1; //add teh cost.
-                            h_updating_graph_active[count]=id; //add the neighbour to active list
-                            count++;
-                            stop=true;
-                            h_graph_visited[id]=true;
-                        }
+			if(h_cost[id]<0){
+					h_cost[id]=k;
+					h_updating_graph_active[count]=id;		
+					count=count+1;
+		                        }     
+                        
                     }
                 }
 count1=count;
-            
+if(count!=0)
+stop=true;
 
 for(int c=0;c<count;c++){
 h_graph_active[c]=h_updating_graph_active[c];
 }
-
-
-        k++;
 
         }
 	while(stop);
@@ -174,18 +170,18 @@ h_graph_active[c]=h_updating_graph_active[c];
 int main() {
     
  // println("hello world Ashuthosh1");
-int a=read_cycles();
+//int a=read_cycles();
     BFSGraph();
-int b=read_cycles();
-printf_d(b-a);
-println("\n");
+//int b=read_cycles();
+//printf_d(b-a);
+//println("\n");
   //println("hello world Ashuthosh");
   
 }
 
 
-void irqCallback(){
-}
+//void irqCallback(){
+//}
 
 
 
