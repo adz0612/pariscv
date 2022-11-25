@@ -67,14 +67,14 @@ void bfs (){
   int thislevel;
   int back, front;
   int i, v, w, e;
-  back = 0;   
-  front = 0;  
+  back = 0;
+  front = 0;
   thislevel = 0;
   level[0] = 0;
   levelsize[0] = 1;
   queue[back++] = 0;
 
-  
+
   while (levelsize[thislevel] > 0) {
     levelsize[thislevel+1] = 0;
     for (i = 0; i < levelsize[thislevel]; i++) {
@@ -94,29 +94,29 @@ void bfs (){
 //if(level[100]==3)
 //println("pass");
 }*/
-void BFSGraph() 
+void BFSGraph()
 {
         int no_of_nodes = ver;          //number of vertices
         int edge_list_size = edg;       //edges
         int source = 0;
 
-	
-	int start, edgeno;   
+
+	int start, edgeno;
 	// initalize the memory
 
 
-	
+
 	//set the source node as true in the mask
 	h_graph_active[0]=source; //true or false supported? lets see if bool is supported. it should be.
 	h_graph_visited[source]=true;
 
-	
+
 	int id,cost;
 	int tid,count1,count;
 
 	// allocate mem for the result on host side
 	//int* h_cost = (int*) malloc( sizeof(int)*no_of_nodes);
-	
+
 	h_cost[source]=0;
 	count1=1;
         int cycles;
@@ -128,7 +128,7 @@ void BFSGraph()
             //if no thread changes this value then the loop stops
                    stop=false;
 
-           
+
 k++;
 count=0;
 for(int j=0;j<count1;j++){
@@ -140,10 +140,10 @@ tid=h_graph_active[j];
                         int id = h_graph_edges[i]; //where is it connected to.
 			if(h_cost[id]<0){
 					h_cost[id]=k;
-					h_updating_graph_active[count]=id;		
-					count=count+1;
-		                        }     
-                        
+					h_updating_graph_active[count]=id;
+					count=count+1; //alex_jose
+		                        }
+
                     }
                 }
 count1=count;
@@ -168,7 +168,7 @@ h_graph_active[c]=h_updating_graph_active[c];
 //////
 
 int main() {
-    
+
  // println("hello world Ashuthosh1");
 //int a=read_cycles();
     BFSGraph();
@@ -176,14 +176,9 @@ int main() {
 //printf_d(b-a);
 //println("\n");
   //println("hello world Ashuthosh");
-  
+
 }
 
 
 //void irqCallback(){
 //}
-
-
-
-
-

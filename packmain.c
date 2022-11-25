@@ -62,7 +62,7 @@ asm volatile(  \
 ".word ((0b0000011 << 25) | (abiname_%2 << 20) | (abiname_%1 << 15) | (0b000 << 12) | (abiname_%0 << 7) | 0b0110011) \n\t" \
 : "=r"(result)    \
 : "r" (src1), "r" (src2) \
-) 
+)
 
 
 #define ADI_ADD(src1, src2, result) \
@@ -70,7 +70,7 @@ asm volatile(  \
 ".word ((0b0000011 << 25) | (abiname_%2 << 20) | (abiname_%1 << 15) | (0b000 << 12) | (abiname_%0 << 7) | 0b0110010) \n\t" \
 : "=r"(result)    \
 : "r" (src1), "r" (src2) \
-) 
+)
 void putchar(char c){
 	uart_write(UART, c);
 }
@@ -122,14 +122,14 @@ void bfs (){
   int thislevel;
   int back, front;
   int i, v, w, e;
-  back = 0;   
-  front = 0;  
+  back = 0;
+  front = 0;
   thislevel = 0;
   level[0] = 0;
   levelsize[0] = 1;
   queue[back++] = 0;
 
-  
+
   while (levelsize[thislevel] > 0) {
     levelsize[thislevel+1] = 0;
     for (i = 0; i < levelsize[thislevel]; i++) {
@@ -149,14 +149,14 @@ void bfs (){
 //if(level[100]==3)
 //println("pass");
 }*/
-void BFSGraph() 
+void BFSGraph()
 {
         int no_of_nodes = ver;          //number of vertices
         int edge_list_size = edg;       //edges
         int source = 0;
 
-	
-	int start, edgeno;   
+
+	int start, edgeno;
 	// initalize the memory
 
 
@@ -164,13 +164,13 @@ void BFSGraph()
 	h_graph_mask[source]=true; //true or false supported? lets see if bool is supported. it should be.
 	h_graph_visited[source]=true;
 
-	
+
 	int id,cost;
-	
+
 
 	// allocate mem for the result on host side
 	//int* h_cost = (int*) malloc( sizeof(int)*no_of_nodes);
-	
+
 	h_cost[source]=0;
 	int rd=0;
         int cycles;
@@ -186,46 +186,35 @@ void BFSGraph()
             {
                  for(int tid2 = 0; tid2 < 32; tid2++ ) //all nodes. row wise
           	   {
-
-//                    if(((h_graph_mask[tid1]>>tid2)&0x01))
-//asm volatile("opcode_R(CUSTOM0,0x0,0x00,x3,x1,x2)");
 SIMD_ADD(h_graph_mask[tid1],tid2,rd);
-//if(((h_graph_mask[tid1]>>tid2)&0x01)){
 if(rd){
-                                                   h_graph_mask[tid1]=(~(1<<tid2))&h_graph_mask[tid1];
-//ADI_ADD(tid1,tid2,boom);
-boom=(tid1*32)+tid2;
-                             for(int i=h_graph_nodes[boom].starting; i<(h_graph_nodes[boom].no_of_edges + h_graph_nodes[boom].starting); i++)
+tid=(tid1*32)+tid2;
+                             for(int i=h_graph_nodes[tid].starting; i<(h_graph_nodes[tid].no_of_edges + h_graph_nodes[tid].starting); i++)
                     			{ //starting till no of edges
                         			int id = h_graph_edges[i];
                                                 SIMD_ADD(h_graph_visited[id/32],(id%32),rd);
                                                 if(!rd){
-                                                //if(!((h_graph_visited[id/32]>>(id%32))&0x01))
-                                               //	{
-                            					h_cost[id]=h_cost[boom]+1; //add the cost.
+                                  					h_cost[id]=h_cost[tid]+1; //add the cost.
                                                 		stop=true;
                                                                 h_updating_graph_mask[id/32]=((1<<(id%32)))|h_updating_graph_mask[id/32];
-
-//								custom_set(h_updating_graph_mask[id],h_updating_graph_mask[id],id); 
 							}
 					}
 				}
 			}
 		}
-                 
-            for(int tid=0; tid< 32 ; tid++ ) 
+            for(int tid=0; tid< 32 ; tid++ )
             {
-              h_graph_mask[tid]=h_graph_mask[tid]|h_updating_graph_mask[tid];		
+              h_graph_mask[tid]=h_graph_mask[tid]|h_updating_graph_mask[tid];
               h_graph_visited[tid]=h_graph_visited[tid]|h_updating_graph_mask[tid];
-		h_updating_graph_mask[tid]=0;
+		          h_updating_graph_mask[tid]=0;
             }
         k++;
-            
+
         }
 	while(stop);
 	// cleanup memory
 if(h_cost[100]==4){
-println("Ash");
+//println("Ash");
 printf_d(45);
 }
 }
@@ -234,7 +223,7 @@ printf_d(45);
 //////
 
 int main() {
-    
+
  // println("hello world Ashuthosh1");
  int a,b;
 a=read_cycles();
@@ -242,13 +231,9 @@ a=read_cycles();
 b=read_cycles();
 printf_d(b-a);
  // println("hello world Ashuthosh");
-  
+
 }
 
 
 void irqCallback(){
 }
-
-
-
-
