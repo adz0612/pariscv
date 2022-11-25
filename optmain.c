@@ -141,7 +141,7 @@ tid=h_graph_active[j];
 			if(h_cost[id]<0){
 					h_cost[id]=k;
 					h_updating_graph_active[count]=id;
-					count=count+1; //alex_jose
+					count=count+1; 
 		                        }
 
                     }
