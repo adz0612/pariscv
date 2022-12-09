@@ -173,7 +173,7 @@ void BFSGraph()
         count3=0;
         int cycles;
 	int k=0;
-        int meow=0;
+        int local=0;
 
 	bool stop; //flag
 	do
@@ -188,8 +188,8 @@ k++;
 count=0;
 next1=1;
 for(int j=0;j<count1;j++){
-meow=h_graph_active1[j];
-tid=h_own1[meow];
+local=h_graph_active1[j];
+tid=h_own1[local];
                     for(int i=h_graph_nodes1[tid]; i< h_graph_nodes1[tid+1]; i++)
                     { //starting till no of edges
                         int id = h_graph_edges1[i]; //where is it connected to.
@@ -219,8 +219,8 @@ next2=1;
 //int a=read_cycles();
 
 for(int j=0;j<count3;j++){
-meow=h_graph_active2[j];
-tid=h_own2[meow];
+local=h_graph_active2[j];
+tid=h_own2[local];
                     for(int i=h_graph_nodes2[tid]; i< h_graph_nodes2[tid+1]; i++)
                     { //starting till no of edges
                         int id = h_graph_edges2[i]; //where is it connected to.
