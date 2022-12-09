@@ -154,21 +154,27 @@ void BFSGraph()
 	// initalize the memory
 
 
-	
-	//set the source node as true in the mask
-	h_graph_active1[0]=source; //true or false supported? lets see if bool is supported. it should be.
-//	h_graph_visited[source]=true;
-
-	
 	int id,cost;
 	int tid,count1,count,count2,count3,next1,next2;
 
+	//set the source node as true in the mask
+	if(h_own1[source]==-1){
+	h_graph_active2[0]=source; 
+		count3=1;//true or false supported? lets see if bool is supported. it should be.
+//	h_graph_visited[source]=true;
+	}
+	else
+	{
+	h_graph_active1[0]=source;
+		count1=1;
+	}
+	
 	// allocate mem for the result on host side
 	//int* h_cost = (int*) malloc( sizeof(int)*no_of_nodes);
 	
 	h_cost1[source]=0;
         h_cost2[source]=0;
-	count1=1;
+	//count1=1;
         count2=0;
         count3=0;
         int cycles;
