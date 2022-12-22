@@ -127,17 +127,17 @@ void BFSGraph()
             //if no thread changes this value then the loop stops
             stop=false;
 
-           for(int tid = 0; tid < no_of_nodes; tid++ ) //all nodes. row wise
+           for(int tid = 0; tid < no_of_nodes; tid++ ) 
             {
-                if (h_graph_mask[tid] == true){ //check if active
+                if (h_graph_mask[tid] == true){ 
                     h_graph_mask[tid]=false;
                     for(int i=h_graph_nodes[tid].starting; i<(h_graph_nodes[tid].no_of_edges + h_graph_nodes[tid].starting); i++)
                     { //starting till no of edges
-                        int id = h_graph_edges[i]; //where is it connected to.
-                        if(!h_graph_visited[id]) //is it visited?
+                        int id = h_graph_edges[i]; 
+                        if(!h_graph_visited[id]) 
                         {
-                            h_cost[id]=h_cost[tid]+1; //add teh cost.
-                            h_updating_graph_mask[id]=true; //add the neighbour to active list
+                            h_cost[id]=h_cost[tid]+1; 
+                            h_updating_graph_mask[id]=true; 
                         }
                     }
                 }
